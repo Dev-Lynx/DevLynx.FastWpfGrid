@@ -6,21 +6,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" >
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
         <Grid x:Name="imageGrid" Grid.Row="0" Grid.Column="0" SizeChanged="imageGridResized">
             <Image 
                 x:Name="image" SnapsToDevicePixels="True" Focusable="True" KeyDown="imageKeyDown" MouseDown="imageMouseDown" 
                 Mouse.MouseLeave="imageMouseLeave"
                 RenderOptions.BitmapScalingMode="NearestNeighbor" TextInput="imageTextInput" MouseWheel="imageMouseWheel" />
-            <TextBox x:Name="edText" Visibility="Hidden" SnapsToDevicePixels="True" PreviewKeyDown="edTextKeyDown" TextChanged="edTextChanged" LostFocus="edTextLostFocus" Margin="-1,0,1,0" AcceptsReturn="True" />
+
+            <TextBox x:Name="edText" Visibility="Hidden" SnapsToDevicePixels="True" 
+                     PreviewKeyDown="edTextKeyDown" TextChanged="edTextChanged" 
+                     LostFocus="edTextLostFocus" Margin="-1,0,1,0" AcceptsReturn="True" />
+
             <ItemsControl Visibility="Hidden" SnapsToDevicePixels="True" x:Name="mnuSelection" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -38,9 +33,15 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-        
 
-        <ScrollBar Orientation="Horizontal" Grid.Column="0" Grid.Row="1" x:Name="hscroll" Maximum="100" Scroll="hscroll_Scroll" />
-        <ScrollBar Orientation="Vertical" Grid.Column="1" Grid.Row="0" x:Name="vscroll" Maximum="100" Scroll="vscroll_Scroll" />
+
+        <ScrollBar Orientation="Horizontal" Grid.Column="0" Grid.Row="1" x:Name="hscroll" 
+                   Maximum="100" Scroll="hscroll_Scroll"
+                   VerticalAlignment="Bottom"/>
+
+
+        <ScrollBar Orientation="Vertical" Grid.Column="1" Grid.Row="0" 
+                   x:Name="vscroll" Maximum="100" Scroll="vscroll_Scroll"
+                   HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>
