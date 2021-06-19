@@ -67,7 +67,7 @@ namespace FastWpfGrid
             }
         }
 
-        private void ClearSelectedCells()
+        public void ClearSelectedCells()
         {
             _selectedCells.Clear();
             _selectedRows.Clear();

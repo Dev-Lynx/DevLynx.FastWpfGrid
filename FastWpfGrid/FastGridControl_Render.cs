@@ -131,7 +131,7 @@ namespace FastWpfGrid
             if (cell != null) cellBackground = cell.BackgroundColor;
 
             Color? hoverColor = null;
-            if (col == _mouseOverColumnHeader) hoverColor = MouseOverRowColor;
+            if (col == _mouseOverColumnHeader) hoverColor = MouseOverHeaderColor;
 
             RenderCell(cell, rect, null, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(null, col));
         }
@@ -148,7 +148,7 @@ namespace FastWpfGrid
             if (cell != null) cellBackground = cell.BackgroundColor;
 
             Color? hoverColor = null;
-            if (row == _mouseOverRowHeader) hoverColor = MouseOverRowColor;
+            if (row == _mouseOverRowHeader) hoverColor = MouseOverHeaderColor;
 
             RenderCell(cell, rect, null, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(row, null));
         }
@@ -175,8 +175,8 @@ namespace FastWpfGrid
             if (cell != null) cellBackground = cell.BackgroundColor;
 
             RenderCell(cell, rect, selectedTextColor, selectedBgColor
-                                                      ?? hoverRowColor
                                                       ?? cellBackground
+                                                      ?? hoverRowColor
                                                       ?? GetAlternateBackground(row),
                                                       new FastGridCellAddress(row, col));
         }
@@ -223,6 +223,7 @@ namespace FastWpfGrid
                 }
 
             }
+            width = Math.Max(CellMinWidth, width);
             return width;
         }
 

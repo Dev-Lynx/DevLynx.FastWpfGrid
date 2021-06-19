@@ -17,6 +17,7 @@ namespace FastWpfGrid
         private Color _selectedTextColor = Colors.White;
         private Color _limitedSelectedColor = Color.FromRgb(51, 220, 220);
         private Color _limitedSelectedTextColor = Colors.White;
+		private Color _mouseOverHeaderColor = Color.FromRgb(235, 235, 255);
         private Color _mouseOverRowColor = Color.FromRgb(235, 235, 255); // Colors.LemonChiffon; // Colors .Beige;
         private string _cellFontName = "Arial";
         private int _cellFontSize;
@@ -26,6 +27,8 @@ namespace FastWpfGrid
         private int _blockPadding = 2;
         private int _columnResizeTheresold = 2;
         private int? _minColumnWidthOverride;
+        
+        private int _cellMinWidth = 50;
 
         private Color[] _alternatingColors = new Color[]
             {
@@ -146,6 +149,12 @@ namespace FastWpfGrid
             }
         }
 
+		public Color MouseOverHeaderColor
+        {
+            get { return _mouseOverHeaderColor; }
+            set { _mouseOverHeaderColor = value; }
+        }
+        
         public Color MouseOverRowColor
         {
             get { return _mouseOverRowColor; }
@@ -243,6 +252,12 @@ namespace FastWpfGrid
         {
             get { return _wideColumnsLimit; }
             set { _wideColumnsLimit = value; }
+        }
+        
+        public int CellMinWidth
+        {
+            get { return _cellMinWidth; }
+            set { _cellMinWidth = value; }
         }
     }
 }
