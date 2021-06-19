@@ -203,27 +203,27 @@ namespace FastWpfGrid
             if (cell == null) return 0;
             int count = cell.BlockCount;
 
-            int witdh = 0;
+            int width = 0;
             for (int i = 0; i < count; i++)
             {
                 var block = cell.GetBlock(i);
                 if (block == null) continue;
-                if (i > 0) witdh += BlockPadding;
+                if (i > 0) width += BlockPadding;
 
                 switch (block.BlockType)
                 {
                     case FastGridBlockType.Text:
                         string text = block.TextData;
                         var font = GetFont(block.IsBold, block.IsItalic);
-                        witdh += font.GetTextWidth(text, maxSize);
+                        width += font.GetTextWidth(text, maxSize);
                         break;
                     case FastGridBlockType.Image:
-                        witdh += block.ImageWidth;
+                        width += block.ImageWidth;
                         break;
                 }
 
             }
-            return witdh;
+            return width;
         }
 
         private int RenderBlock(int leftPos, int rightPos, Color? selectedTextColor, Color bgColor, IntRect rectContent, IFastGridCellBlock block, FastGridCellAddress cellAddr, bool leftAlign, bool isHoverCell)
@@ -288,8 +288,12 @@ namespace FastWpfGrid
                     {
                         var imgOrigin = new IntPoint(leftAlign ? leftPos : rightPos - block.ImageWidth, top);
                         var image = GetImage(block.ImageSource);
-                        _drawBuffer.Blit(new Point(imgOrigin.X, imgOrigin.Y), image.Bitmap, new Rect(0, 0, block.ImageWidth, block.ImageHeight),
-                                         image.KeyColor, image.BlendMode);
+
+                        if (image != null)
+                        {
+                            _drawBuffer.Blit(new Point(imgOrigin.X, imgOrigin.Y), image.Bitmap, 
+                                new Rect(0, 0, block.ImageWidth, block.ImageHeight), image.KeyColor, image.BlendMode);
+                        }
                     }
                     break;
             }
@@ -357,14 +361,23 @@ namespace FastWpfGrid
 
             string packUri = "pack://application:,,,/" + Assembly.GetEntryAssembly().GetName().Name + ";component/" + source.TrimStart('/');
             BitmapImage bmImage = new BitmapImage();
-            bmImage.BeginInit();
-            bmImage.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
-            bmImage.UriSource = new Uri(packUri, UriKind.Absolute);
-            bmImage.EndInit();
-            var wbmp = new WriteableBitmap(bmImage);
+            WriteableBitmap wbmp;
 
-            if (wbmp.Format != PixelFormats.Bgra32)
-                wbmp = new WriteableBitmap(new FormatConvertedBitmap(wbmp, PixelFormats.Bgra32, null, 0));
+            try
+            {
+                bmImage.BeginInit();
+                bmImage.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+                bmImage.UriSource = new Uri(packUri, UriKind.Absolute);
+                bmImage.EndInit();
+                wbmp = new WriteableBitmap(bmImage);
+
+                if (wbmp.Format != PixelFormats.Bgra32)
+                    wbmp = new WriteableBitmap(new FormatConvertedBitmap(wbmp, PixelFormats.Bgra32, null, 0));
+            }
+            catch
+            {
+                return null;
+            }
 
             var image = new ImageHolder(wbmp, bmImage);
             lock (_imageCache)
