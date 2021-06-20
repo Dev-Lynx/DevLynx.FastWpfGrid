@@ -37,6 +37,7 @@ namespace FastWpfGridTest
 
         private void tabChanged(object sender, SelectionChangedEventArgs e)
         {
+           
             if (tab.SelectedIndex == 2) Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (Action) SetBitmap);
         }
 

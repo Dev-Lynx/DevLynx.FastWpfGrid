@@ -103,7 +103,7 @@
       <Name>FastWpfGrid</Name>
     </ProjectReference>
     <ProjectReference Include="..\WriteableBitmapEx\WriteableBitmapEx.Wpf.csproj">
-      <Project>{B0AA6A94-6784-4221-81F0-244A68C374C0}</Project>
+      <Project>{b0aa6a94-6784-4221-81f0-244a68c374c0}</Project>
       <Name>WriteableBitmapEx.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
